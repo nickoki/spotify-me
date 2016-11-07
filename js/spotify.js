@@ -20,7 +20,7 @@ $(document).ready(() => {
       url: url,
       dataType: 'json',
     }).done((res) => {
-      renderArtists(res)
+      renderResults(res.artists.items)
     }).fail((res) => {
       console.log("Spotify API request failed.")
     })
@@ -33,23 +33,16 @@ $(document).ready(() => {
       url: url,
       dataType: 'json',
     }).done((res) => {
-      renderTracks(res)
+      renderResults(res.tracks.items)
     }).fail((res) => {
       console.log("Spotify API request failed.")
     })
   }
 
-  function renderArtists(res) {
+  function renderResults(data) {
     $("#results").html("")
-    $.each(res.artists.items, (i, artist) => {
-      $("#results").append(`<li>${artist.name}</li>`)
-    })
-  }
-
-  function renderTracks(res) {
-    $("#results").html("")
-    $.each(res.tracks.items, (i, track) => {
-      $("#results").append(`<li>${track.name}</li>`)
+    $.each(data, (i, item) => {
+      $("#results").append(`<li>${item.name}</li>`)
     })
   }
 
